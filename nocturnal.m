@@ -11,13 +11,11 @@
 //Return the color selection color of your module here
 - (UIColor *)selectedColor
 {
-	return [UIColor colorWithRed:(218.0/255.0) green:(230.0/255.0) blue:(125.0/255.0) alpha:1.0];
+	return [UIColor colorWithRed:(168.0/255.0) green:(180.0/255.0) blue:(75.0/255.0) alpha:1.0];
 }
 
 - (BOOL)isSelected
 {
-	NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
-	_selected = [eclipsePrefsDict valueForKey:@"enabled"];
   return _selected;
 }
 
