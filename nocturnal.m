@@ -11,7 +11,7 @@
 //Return the color selection color of your module here
 - (UIColor *)selectedColor
 {
-	return [UIColor colorWithRed:(0.0/255.0) green:(108.0/255.0) blue:(255.0/255.0) alpha:1.0];
+	return [UIColor colorWithRed:(218.0/255.0) green:(230.0/255.0) blue:(125.0/255.0) alpha:1.0];
 }
 
 - (BOOL)isSelected
