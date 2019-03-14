@@ -1,9 +1,10 @@
 Package: com.samgisaninja.nocturnal
 Name: nocturnal
 Depends: mobilesubstrate, com.opa334.ccsupport, me.gmoran.eclipse12
-Version: 1.1
 Architecture: iphoneos-arm
 Description: Control Center Module for Eclipse!
 Maintainer: Samg_is_a_Ninja
 Author: Samg_is_a_Ninja
 Section: Control Center (Modules)
+Version: 1.1-1+debug
+Installed-Size: 100

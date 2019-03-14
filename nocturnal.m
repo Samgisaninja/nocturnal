@@ -16,6 +16,8 @@
 
 - (BOOL)isSelected
 {
+	NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
+	_selected = [eclipsePrefsDict valueForKey:@"enabled"];
   return _selected;
 }
 
