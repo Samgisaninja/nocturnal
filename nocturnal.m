@@ -1,5 +1,8 @@
 #import "nocturnal.h"
 
+#define QUIT_APPS_NOTIF "com.gmoran.eclipse.quit-apps"
+#define PREFS_CHANGED_NOTIF "com.gmoran.eclipse.prefs-changed"
+
 @implementation nocturnal
 
 //Return the icon of your module here
@@ -16,7 +19,15 @@
 
 - (BOOL)isSelected
 {
-  return _selected;
+  NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
+    
+    NSNumber* n = (NSNumber *)[eclipsePrefsDict objectForKey:@"enabled"];
+    return (n)? [n boolValue]:NO;
+}
+
+-(void)quitRunningApps
+{
+    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR(QUIT_APPS_NOTIF), NULL, NULL, TRUE);
 }
 
 - (void)setSelected:(BOOL)selected
@@ -27,15 +38,20 @@
 
   if(_selected)
   {
-		NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
-  	[eclipsePrefsDict setValue:[NSNumber numberWithBool:TRUE] forKey:@"enabled"];
-    [eclipsePrefsDict writeToFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist" atomically:TRUE];
+      NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
+      [eclipsePrefsDict setValue:[NSNumber numberWithBool:TRUE] forKey:@"enabled"];
+      [eclipsePrefsDict writeToFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist" atomically:TRUE];
+      
+      [self quitRunningApps];
   }
   else
   {
-		NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
-  	[eclipsePrefsDict setValue:[NSNumber numberWithBool:FALSE] forKey:@"enabled"];
-    [eclipsePrefsDict writeToFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist" atomically:TRUE];
+      NSMutableDictionary *eclipsePrefsDict = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist"]];
+      [eclipsePrefsDict setValue:[NSNumber numberWithBool:FALSE] forKey:@"enabled"];
+      [eclipsePrefsDict writeToFile:@"/var/mobile/Library/Preferences/com.gmoran.eclipse.plist" atomically:TRUE];
+    
+      [self quitRunningApps];
+
   }
 }
 
